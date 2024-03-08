@@ -1,8 +1,8 @@
-import { useState, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import HomePage from '../../pages/HomePage';
-import NotFound from '../../pages/NotFound';
-import css from './App.module.css';
+import { useState, lazy } from "react";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "../../pages/HomePage";
+import NotFound from "../../pages/NotFound";
+import css from "./App.module.css";
 
 export default function App() {
   const [count, setCount] = useState(0);
@@ -10,22 +10,22 @@ export default function App() {
   return (
     <>
       <div>
+        <nav>
+          <Link to="/"></Link>
+        </nav>
+
         <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='*' element={<NotFound />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:movieId" element={<MovieDetailsPage />} />
+          <Route path="/movies/:movieId/cast" element={<MovieCast />} />
+          <Route path="/movies/:movieId/reviews" element={<MovieReviews />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </>
   );
 }
-
-// API Key
-// 11aa654a2acdb20fe9d1d9415b709ac1
-
-// API Read Access Token
-// eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMWFhNjU0YTJhY2RiMjBmZTlkMWQ5NDE1YjcwOWFjMSIsInN1YiI6IjY1ZThlN2U4YzUwYWQyMDE3Y2E4OGNjZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gAcAN4HvXYObSHXe-bqyVHnjgU2LAoy_d7SLGU0MTUs
-
-// https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg
 
 // ===========================================================================
 
