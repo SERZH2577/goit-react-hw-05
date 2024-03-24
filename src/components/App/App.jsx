@@ -1,7 +1,12 @@
 import { useState, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
+import Navigation from "../Navigation/Navigation";
 import HomePage from "../../pages/HomePage";
-import NotFound from "../../pages/NotFound";
+import MoviesPage from "../../pages/MoviesPage";
+import MovieDetailsPage from "../../pages/MovieDetailsPage";
+// import MovieCast from "../../pages/MovieCast";
+// import MovieReviews from "../../pages/MovieReviews";
+import NotFoundPage from "../../pages/NotFoundPage";
 import css from "./App.module.css";
 
 export default function App() {
@@ -10,17 +15,15 @@ export default function App() {
   return (
     <>
       <div>
-        <nav>
-          <Link to="/"></Link>
-        </nav>
+        <Navigation />
 
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />
           <Route path="/movies/:movieId" element={<MovieDetailsPage />} />
-          <Route path="/movies/:movieId/cast" element={<MovieCast />} />
-          <Route path="/movies/:movieId/reviews" element={<MovieReviews />} />
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="/movies/:movieId/cast" element={<MovieCast />} /> */}
+          {/* <Route path="/movies/:movieId/reviews" element={<MovieReviews />} /> */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </>
