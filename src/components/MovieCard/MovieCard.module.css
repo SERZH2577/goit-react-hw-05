@@ -1,0 +1,20 @@
+h1 {
+  font-size: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #080808;
+}
+
+.card {
+  width: 240px;
+  height: 471px;
+  padding: 5px;
+  background-color: #f8f8f8;
+  border: 1px solid #d33333;
+}
+
+.img {
+  display: block;
+}

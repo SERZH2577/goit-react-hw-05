@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getTrendingMovies } from "../apiService/movies";
 import MovieList from "../components/MovieList/MovieList";
+import Loader from "../components/Loader/Loader";
 import NotFoundPage from "../pages/NotFoundPage";
 // import { Link } from "react-router-dom";
 
@@ -28,7 +29,7 @@ export default function HomePage() {
 
   return (
     <>
-      {isLoading && <b>Loading movies...</b>}
+      {isLoading && <Loader />}
       {isError && <NotFoundPage />}
       <MovieList movies={movies} />
     </>
