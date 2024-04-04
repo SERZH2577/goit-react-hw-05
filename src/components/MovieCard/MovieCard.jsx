@@ -3,7 +3,7 @@ import css from "./MovieCard.module.css";
 
 export default function MovieCard({ movie }) {
   return (
-    <Link to={`/${movie.id}`}>
+    <Link to={`/movies/${movie.id}`}>
       <div className={css.card}>
         <img
           src={`https://image.tmdb.org/t/p/w500/${movie.poster_path} `}
@@ -13,7 +13,7 @@ export default function MovieCard({ movie }) {
           className={css.img}
         />
         <h1>{movie.original_title}</h1>
-        <p>Rating: {movie.vote_average.toFixed(1)}</p>
+        <p>Rating: {movie.vote_average.toFixed()}</p>
       </div>
     </Link>
   );
