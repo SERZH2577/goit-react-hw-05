@@ -1,0 +1,27 @@
+.castBlock {
+  width: 1100px;
+  padding: 50px 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  justify-content: space-between;
+  padding: 0;
+
+  gap: 10px;
+}
+
+.castItem {
+  width: 200px;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.reviewNotFound {
+  font-weight: 700;
+  text-align: center;
+}

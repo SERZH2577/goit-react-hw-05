@@ -1,11 +1,9 @@
-// import { Link } from "react-router-dom";
 import MovieCard from "../MovieCard/MovieCard";
 import css from "./MovieList.module.css";
 
 export default function MovieList({ movies }) {
-  console.log(movies);
   return (
-    <div>
+    <div className={css.container}>
       <ul className={css.list}>
         {movies.map((movie) => (
           <li key={movie.id}>

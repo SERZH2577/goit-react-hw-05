@@ -34,7 +34,7 @@ export default function MovieReviews() {
   }, [movieId]);
 
   return (
-    <section>
+    <div className={css.reviewsBlock}>
       {isLoading && <Loader />}
       {isError && <NotFoundPage />}
 
@@ -53,6 +53,6 @@ export default function MovieReviews() {
           ))}
         </ul>
       )}
-    </section>
+    </div>
   );
 }

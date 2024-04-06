@@ -1,0 +1,13 @@
+.container {
+  height: 100%;
+  padding: 38px 0 50px 0;
+  /* padding: 100px; */
+}
+
+.title {
+  display: block;
+  font-size: 36px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0;
+}

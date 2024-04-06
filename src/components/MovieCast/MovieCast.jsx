@@ -34,12 +34,18 @@ export default function MovieCast() {
   }, [movieId]);
 
   return (
-    <section className={css.castSection}>
+    <div className={css.castBlock}>
       {isLoading && <Loader />}
       {isError && <NotFoundPage />}
 
+      {!isLoading && actors !== null && actors.length === 0 && (
+        <p
+          className={css.reviewNotFound}
+        >{`We don't have any reviews for this movie`}</p>
+      )}
+
       {actors && (
-        <ul className={css.castList}>
+        <ul className={css.list}>
           {actors.map((actor) => (
             <li className={css.castItem} key={actor.id}>
               <MovieCastCard dataActor={actor} />
@@ -47,6 +53,6 @@ export default function MovieCast() {
           ))}
         </ul>
       )}
-    </section>
+    </div>
   );
 }

@@ -6,14 +6,21 @@ import {
   useParams,
 } from "react-router-dom";
 import { getMovieDetails } from "../../apiService/movies";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import css from "./MovieDetailsPage.module.css";
+import Loader from "../../components/Loader/Loader";
+import clsx from "clsx";
+
+const makeLinkClass = ({ isActive }) => {
+  return clsx(css.navItem, isActive && css.isActive);
+};
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+
   const location = useLocation();
-  const backLink = location.state?.from ?? "/";
+  const backLink = useRef(location.state ?? "/");
 
   useEffect(() => {
     async function getData() {
@@ -29,84 +36,65 @@ export default function MovieDetailsPage() {
   }, [movieId]);
 
   return (
-    <section className={css.movieDetails}>
-      <Link to={backLink}>
-        <button className={css.btnLink}>
-          {/* <GoArrowLeft size="20" /> */}
-          Go Back
-        </button>
+    <>
+      <Link to={backLink.current}>
+        <button className={css.btnBack}> Go Back</button>
       </Link>
-      {/* {loading && <Loader />} */}
+      <section className={css.container}>
+        {movie && (
+          <div className={css.mainBlock}>
+            <div className={css.detailsBlock}>
+              <img
+                className={css.movieImg}
+                src={
+                  movie.poster_path
+                    ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                    : "https://kartinki.pics/pics/uploads/posts/2022-08/1660722963_10-kartinkin-net-p-fon-dlya-prezentatsii-film-krasivo-10.jpg"
+                }
+                alt={movie.original_title}
+                width="350"
+                height="500"
+              />
 
-      {movie && (
-        <div className={css.movieDetailsSection}>
-          <div className={css.movieDetailsThumb}>
-            <img
-              className={css.movieDetailsImg}
-              src={
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                  : fallbackImage.image
-              }
-              alt={movie.original_title}
-              width="350"
-              height="500"
-            />
-            <div>
-              <h2 className={css.movieDetailsTitle}>{movie.original_title}</h2>
-              <p className={css.movieDetailsTagline}>{movie.tagline}</p>
-              {/* <p className={css.movieDetailsText}>
-                <span className={css.spanAccent}>Release date:</span>{" "}
-                {formatDate(movie.release_date)}
-              </p> */}
-              {/* {userScore !== "0" && userScore !== null && (
-                <div className={css.movieDetailsScore}>
-                  <p className={css.movieDetailsText}>
-                    <span className={css.spanAccent}>User Score:</span>{" "}
-                    {userScore}&#37;
-                  </p>{" "}
-                  <span
-                    className={
-                      userScore < 60 ? css.iconSpilled : css.iconUpright
-                    }
-                  ></span>
+              <div className={css.descriptionBlock}>
+                <div>
+                  {" "}
+                  <h2 className={css.movieTitle}>{movie.title}</h2>
+                  <h3 className={css.descriptionTitle}>
+                    Rating: {movie.vote_average.toFixed(1)}
+                  </h3>
+                  <h3 className={css.descriptionTitle}>Overview</h3>
+                  <p className={`${css.movieDetailsText} ${css.forLaptop}`}>
+                    {movie.overview}
+                  </p>
+                  <h3 className={css.descriptionTitle}>Genres</h3>
+                  <ul className={css.genresList}>
+                    {movie.genres.map((genre) => (
+                      <li className={css.genresItem} key={genre.id}>
+                        {genre.name}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              )} */}
-              <h3 className={css.movieDetailsTitleFilm}>Overview</h3>
-              <p className={`${css.movieDetailsText} ${css.forLaptop}`}>
-                {movie.overview}
-              </p>
-              <h3 className={css.movieDetailsTitleFilm}>Genres</h3>
-              <ul className={css.movieDetailsGenresList}>
-                {movie.genres.map((genre) => (
-                  <li className={css.movieDetailsText} key={genre.id}>
-                    {genre.name}
-                  </li>
-                ))}
-              </ul>
+                <div className={css.moreInfo}>
+                  <nav className={css.moreInfoNav}>
+                    <NavLink to={"cast"} className={makeLinkClass}>
+                      Cast
+                    </NavLink>
+                    <NavLink to={"reviews"} className={makeLinkClass}>
+                      Reviews
+                    </NavLink>
+                  </nav>
+                </div>
+              </div>
             </div>
-          </div>
-          <nav className={css.moreInfo}>
-            <NavLink
-              // className={buildLinkClass(`/movies/${id}/cast`)}
-              to={"cast"}
-              state={location.state}
-            >
-              Cast
-            </NavLink>
-            <NavLink
-              // className={buildLinkClass(`/movies/${id}/reviews`)}
-              to={"reviews"}
-              element={location.state}
-            >
-              Reviews
-            </NavLink>
-          </nav>
 
-          <Outlet />
-          {/* <Suspense></Suspense> */}
-        </div>
-      )}
-    </section>
+            <Suspense fallback={null}>
+              <Outlet />
+            </Suspense>
+          </div>
+        )}
+      </section>
+    </>
   );
 }
